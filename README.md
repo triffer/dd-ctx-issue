@@ -18,6 +18,8 @@ Calling `Span.Current()` inside a function repeatedly executed during Kotlin Flo
 ### Actual Result with OTel Agent
 - When executed with OTel Agent ( using Gradle task `runWithOtel`) also the first and second invocation of `TestService.doSomething` has a valid span context
 
+---
+
 ## Issue Trace/Span ID of Span.current() are different from Trace/Span ID written by LoggingWriter
 
 ### Prerequisites
