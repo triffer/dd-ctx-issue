@@ -1,1 +1,1 @@
-rootProject.name = "datadog-playground"
+rootProject.name = "dd-ctx-issue"

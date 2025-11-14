@@ -48,7 +48,7 @@ tasks.register<JavaExec>("runWithDatadog") {
     classpath = tasks.named<JavaExec>("run").get().classpath
     mainClass = tasks.named<JavaExec>("run").get().mainClass
 
-    val agentPath = layout.buildDirectory.dir("install/datadog-playground/java-agents").get()
+    val agentPath = layout.buildDirectory.dir("install/dd-ctx-issue/java-agents").get()
         .asFileTree.matching { include("dd-java-agent-*.jar") }
         .singleFile.absolutePath
 
@@ -66,7 +66,7 @@ tasks.register<JavaExec>("runWithOtel") {
     classpath = tasks.named<JavaExec>("run").get().classpath
     mainClass = tasks.named<JavaExec>("run").get().mainClass
 
-    val agentPath = layout.buildDirectory.dir("install/datadog-playground/java-agents").get()
+    val agentPath = layout.buildDirectory.dir("install/dd-ctx-issue/java-agents").get()
         .asFileTree.matching { include("opentelemetry-javaagent-*.jar") }
         .singleFile.absolutePath
 
