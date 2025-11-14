@@ -13,10 +13,10 @@ Calling `Span.Current()` inside a function repeatedly executed during Kotlin Flo
 - Log output for `TestService.doSomething` has a valid Span context for all invocations
 
 ### Actual Result with Datadog Agent
-- Log output shows that only the first invocation of `TestService.doSomething` has a valid span context
+- Log output shows that only the first and second invocation of `TestService.doSomething` has a valid span context
 
 ### Actual Result with OTel Agent
-- When executed with OTel Agent ( using Gradle task `runWithOtel`) the first and second invocation of `TestService.doSomething` has a valid span context
+- When executed with OTel Agent ( using Gradle task `runWithOtel`) also the first and second invocation of `TestService.doSomething` has a valid span context
 
 ## Issue Trace/Span ID of Span.current() are different from Trace/Span ID written by LoggingWriter
 

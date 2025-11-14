@@ -27,7 +27,7 @@ dependencies {
     implementation("io.opentelemetry:opentelemetry-api:1.55.0")
     implementation("io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.21.0")
     agent("io.opentelemetry.javaagent:opentelemetry-javaagent:2.21.0")
-    agent("com.datadoghq:dd-java-agent:1.54.0")
+    agent("com.datadoghq:dd-java-agent:1.55.0")
 }
 
 
