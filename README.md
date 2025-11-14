@@ -1,10 +1,10 @@
 # Sample implementation of Context issue
 
-## Prerequisites
-- run `installDist` Gradle task
-
-## Issue missing span context on subsequent invocation
+## Issue #1: Missing span context on subsequent invocation
 Calling `Span.Current()` inside a function repeatedly executed during Kotlin Flow consumption may not reliably capture the desired tracing context.
+
+### Prerequisites
+- run `installDist` Gradle task
 
 ### Steps to reproduce 
 - run Gradle task `runWithDatadog`
@@ -18,7 +18,10 @@ Calling `Span.Current()` inside a function repeatedly executed during Kotlin Flo
 ### Actual Result with OTel Agent
 - When executed with OTel Agent ( using Gradle task `runWithOtel`) also the first and second invocation of `TestService.doSomething` has a valid span context
 
-## Issue Trace/Span ID of Span.current() are different from Trace/Span ID written by LoggingWriter
+## Issue #2: Trace/Span ID of Span.current() are different from Trace/Span ID written by LoggingWriter
+
+### Prerequisites
+- run `installDist` Gradle task
 
 ### Steps to reproduce
 - run Gradle task `runWithDatadog`
