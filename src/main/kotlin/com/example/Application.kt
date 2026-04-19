@@ -19,10 +19,14 @@ fun main(args: Array<String>) {
 }
 
 private fun start(scope: CoroutineScope) {
-    val job = TestJob(TestService())
+    val brokenJob = TestJob(TestService())
+    val fixedJob = FixedTestJob(FixedTestService())
     scope.launch(Dispatchers.Default) {
         while (isActive) {
-            job.start()
+            println("=== BROKEN (no context propagation) ===")
+            brokenJob.start()
+            println("=== FIXED (with OTel context element) ===")
+            fixedJob.start()
             delay(60.seconds)
         }
     }
