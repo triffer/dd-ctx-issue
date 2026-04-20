@@ -1,24 +1,28 @@
 # tracing-context
 
-Bridges OpenTelemetry trace context into Kotlin coroutines so that `Span.current()` remains valid across suspension points and thread switches.
+Keeps `Span.current()` working across suspension points in Kotlin coroutines when using the Datadog Java agent.
 
 ## The problem
 
-The Datadog Java agent (with `dd.trace.otel.enabled=true`) stores span context in `ThreadLocal`. When a coroutine suspends on one thread and resumes on another — which happens routinely with `Dispatchers.Default` and `Dispatchers.IO` — the new thread has no span context. `Span.current()` returns an invalid span, and traces break silently.
+The Datadog Java agent (with `dd.trace.otel.enabled=true`) stores span context in a `ThreadLocal`. When a coroutine
+suspends on one thread and resumes on another (common with `Dispatchers.Default` and `Dispatchers.IO`) the new thread
+has no span context. `Span.current()` returns an invalid span, and traces break silently.
 
-This affects Flows, `delay`, `withTimeout`, `async`, and any other construct that crosses a suspension point.
+This affects Flows, `async`, `withTimeout`, `delay`, and anything else that crosses a suspension point.
 
-The OpenTelemetry Java agent does not have this problem because it instruments `kotlinx-coroutines` directly. The Datadog agent does not.
+The OTel Java agent doesn't have this problem because it instruments `kotlinx-coroutines` directly. The Datadog agent
+doesn't.
 
 ## The fix
 
-This library provides a single function:
+One function:
 
 ```kotlin
 fun tracingContext(): CoroutineContext
 ```
 
-It captures the current OTel context and returns a `CoroutineContext` element that restores it whenever the coroutine resumes on a new thread. Use it with standard coroutine APIs:
+It captures the current OTel context and returns a `CoroutineContext` element that restores it when the coroutine
+resumes on a new thread.
 
 ```kotlin
 @WithSpan("OrderService.process")
@@ -37,10 +41,5 @@ upstream.map { transform(it) }.flowOn(tracingContext())
 
 ## When to use it
 
-Any `@WithSpan` suspend function that runs on a multi-threaded dispatcher needs this. If `Span.current()` is called (directly or by a downstream function) after a suspension point, wrap the coroutine block with `tracingContext()`.
-
-## Dependency
-
-```kotlin
-implementation("com.example:tracing-context:<version>")
-```
+Any `@WithSpan` suspend function on a multi-threaded dispatcher. If `Span.current()` is called after a suspension
+point — directly or by a downstream function — wrap the coroutine block with `tracingContext()`.
