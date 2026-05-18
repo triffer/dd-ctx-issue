@@ -24,11 +24,11 @@ dependencies {
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.13")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("io.github.microutils:kotlin-logging:2.0.11")
-    implementation("io.opentelemetry:opentelemetry-api:1.60.1")
+    implementation("io.opentelemetry:opentelemetry-api:1.62.0")
     implementation(project(":tracing-context"))
-    implementation("io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.26.0")
-    agent("io.opentelemetry.javaagent:opentelemetry-javaagent:2.26.0")
-    agent("com.datadoghq:dd-java-agent:1.60.2")
+    implementation("io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.27.0")
+    agent("io.opentelemetry.javaagent:opentelemetry-javaagent:2.27.0")
+    agent("com.datadoghq:dd-java-agent:1.62.0")
 }
 
 
